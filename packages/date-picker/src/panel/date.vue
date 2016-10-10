@@ -49,11 +49,12 @@
             <span
               @click="showYearPicker"
               class="el-date-picker__header-label">{{ yearLabel }}</span>
+              /
             <span
               @click="showMonthPicker"
               v-show="currentView === 'date'"
               class="el-date-picker__header-label"
-              :class="{ active: currentView === 'month' }">{{ month + 1 }}月</span>
+              :class="{ active: currentView === 'month' }"> {{ strMonth }}</span>
             <button
               type="button"
               @click="nextYear"
@@ -112,7 +113,6 @@
 
 <script type="text/babel">
   import { $t, formatDate, parseDate } from '../util';
-
   export default {
     watch: {
       value(newVal) {
@@ -326,6 +326,7 @@
 
     data() {
       return {
+        strMonth: '',
         date: new Date(),
         value: '',
         showTime: false,
@@ -342,6 +343,23 @@
     },
 
     computed: {
+      strMonth: function() {
+        var months = [
+          'Jan',
+          'Feb',
+          'Mar',
+          'Apr',
+          'May',
+          'Jun',
+          'Jul',
+          'Aug',
+          'Sep',
+          'Oct',
+          'Nov',
+          'Dec'
+        ];
+        return months[this.month];
+      },
       footerVisible() {
         return this.showTime;
       },
@@ -385,9 +403,9 @@
         if (!year) return '';
         if (this.currentView === 'year') {
           const startYear = Math.floor(year / 10) * 10;
-          return startYear + '年' + '-' + (startYear + 9) + '年';
+          return startYear + '-' + (startYear + 9);
         }
-        return this.year + '年';
+        return this.year;
       },
 
       hours: {

@@ -4,7 +4,7 @@
       return {
         pickerOptions0: {
           disabledDate(time) {
-            return time < Date.now();
+            return time < Date.now() - 1000 * 60 * 60 * 24;
           }
         },
         pickerOptions1: {
@@ -132,7 +132,8 @@
       return {
         pickerOptions0: {
           disabledDate(time) {
-            return time < Date.now();
+            console.log(new Date(time))
+            return time < Date.now() - 1000 * 60 * 60 * 24;
           }
         },
         pickerOptions1: {
